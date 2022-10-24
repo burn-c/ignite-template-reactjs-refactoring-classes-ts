@@ -7,10 +7,10 @@ import GlobalStyle from './styles/global';
 const App = () => (
   <>
     <GlobalStyle />
-    <Router>
+    < Router >
       <Routes />
     </Router>
   </>
-);
+)
 
 export default App;
