@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { FC, ReactNode, useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 
 interface ModalProps {
@@ -7,8 +7,15 @@ interface ModalProps {
   setIsOpen: (event: React.MouseEvent | React.KeyboardEvent) => void
 }
 
-const Modal = ({ children, isOpen, setIsOpen }: ModalProps) => {
-  const modalStatus = isOpen
+const Modal: FC<ModalProps> = ({ children, isOpen, setIsOpen }) => {
+  const [modalStatus, setModalStatus] = useState(isOpen)
+
+  useEffect(() => {
+    if (modalStatus !== isOpen) {
+      setModalStatus(isOpen)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen])
 
   return (
     <ReactModal

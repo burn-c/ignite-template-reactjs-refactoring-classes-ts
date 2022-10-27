@@ -1,17 +1,17 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { FiEdit3, FiTrash } from 'react-icons/fi';
 
 import { Container } from './styles';
 import api from '../../services/api';
+import { FoodItemProps } from '../../@types/food';
 
 interface FoodProps {
-  food: any
-  handleEditFood: (foodId: number) => void
+  food: FoodItemProps
+  handleEditFood: (food: FoodItemProps) => void
   handleDelete: (foodId: number) => void
 }
 
-
-const Food = ({ food, handleEditFood, handleDelete }: FoodProps) => {
+const Food: FC<FoodProps> = ({ food, handleEditFood, handleDelete }) => {
   const [isAvailable, setIsAvailable] = useState(food.available)
 
   const toggleAvailable = async () => {
@@ -20,13 +20,12 @@ const Food = ({ food, handleEditFood, handleDelete }: FoodProps) => {
       available: !isAvailable,
     });
 
-    setIsAvailable({ isAvailable: !isAvailable });
+    setIsAvailable(!isAvailable);
   }
 
-  const setEditingFood = (foodId: number) => {
-    handleEditFood(foodId);
+  const setEditingFood = () => {
+    handleEditFood(food);
   }
-
 
   return (
     <Container available={isAvailable}>
@@ -45,7 +44,7 @@ const Food = ({ food, handleEditFood, handleDelete }: FoodProps) => {
           <button
             type="button"
             className="icon"
-            onClick={() => setEditingFood(food.id)}
+            onClick={setEditingFood}
             data-testid={`edit-food-${food.id}`}
           >
             <FiEdit3 size={20} />

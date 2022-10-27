@@ -4,30 +4,32 @@ import { Form } from './styles';
 import Modal from '../Modal';
 import Input from '../Input';
 
-interface ModalAddFoodProps {
+interface ModalEditFoodProps {
   isOpen: boolean
   setIsOpen: () => void
-  handleAddFood: (data: any) => void
+  editingFood: {}
+  handleUpdateFood: (data: any) => void
 }
 
-const ModalAddFood = ({ isOpen, setIsOpen, handleAddFood }: ModalAddFoodProps) => {
-  const handleSubmit = async (data: any) => {
-    handleAddFood(data);
+const ModalEditFood = ({ isOpen, setIsOpen, editingFood, handleUpdateFood }: ModalEditFoodProps) => {
+  const handleSubmit = (data: any) => {
+    handleUpdateFood(data);
     setIsOpen();
   }
 
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-      <Form onSubmit={handleSubmit}>
-        <h1>Novo Prato</h1>
+      <Form onSubmit={handleSubmit} initialData={editingFood}>
+        <h1>Editar Prato</h1>
         <Input name="image" placeholder="Cole o link aqui" />
 
         <Input name="name" placeholder="Ex: Moda Italiana" />
         <Input name="price" placeholder="Ex: 19.90" />
 
         <Input name="description" placeholder="Descrição" />
-        <button type="submit" data-testid="add-food-button">
-          <p className="text">Adicionar Prato</p>
+
+        <button type="submit" data-testid="edit-food-button">
+          <div className="text">Editar Prato</div>
           <div className="icon">
             <FiCheckSquare size={24} />
           </div>
@@ -37,4 +39,4 @@ const ModalAddFood = ({ isOpen, setIsOpen, handleAddFood }: ModalAddFoodProps) =
   );
 };
 
-export default ModalAddFood;
+export default ModalEditFood;
